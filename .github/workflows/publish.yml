@@ -1,47 +1,14 @@
-name: Publish StaySigns site
+# Publication paused at the owner's request.
+# GitHub Pages must also be disabled under Settings > Pages to unpublish the live website.
+name: StaySigns publication paused
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
-  schedule:
-    # Weekly Monday 09:17 JST (00:17 UTC)
-    - cron: '17 0 * * 1'
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: github-pages
-  cancel-in-progress: false
 
 jobs:
-  build:
+  suspended:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out files
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Build public site
-        run: python build_site.py
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-      - name: Upload static site
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: _site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy site
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - run: echo "Site publication is suspended. No deployment is performed."
